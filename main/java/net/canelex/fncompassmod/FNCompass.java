@@ -16,6 +16,9 @@ public class FNCompass
 {
 	private Minecraft mc;
 	private FontRenderer fr;
+	private final double PRIMARY_CARDINAL_SCALE = 1.5D;
+	private final double SECONDARY_CARDINAL_SCALE = 1D;
+	private final double ANGLE_SCALE = 0.75D;
 
 	// Settings
 	public boolean enabled;
@@ -62,7 +65,8 @@ public class FNCompass
 			if (tintMarker != 0)
 			{
 				colorMarker = Color.HSBtoRGB(tintMarker / 100F, 1F, 1F);
-			} else
+			}
+			else
 			{
 				colorMarker = 0xFFFFFFFF;
 			}
@@ -70,11 +74,13 @@ public class FNCompass
 			if (tintDirection != 0)
 			{
 				colorDirection = Color.HSBtoRGB(tintDirection / 100F, 1F, 1F);
-			} else
+			}
+			else
 			{
 				colorDirection = 0xFFFFFFFF;
 			}
-		} else
+		}
+		else
 		{
 			colorDirection = colorMarker = Color.HSBtoRGB((System.currentTimeMillis() % 3000) / 3000F, 1F, 1F);
 		}
@@ -83,87 +89,41 @@ public class FNCompass
 
 		if (details >= 0) // LOW
 		{
-			drawDirection("S", 0, 1.5D);
-			drawDirection("W", 90, 1.5D);
-			drawDirection("N", 180, 1.5D);
-			drawDirection("E", 270, 1.5D);
+			drawDirection("S", 0, PRIMARY_CARDINAL_SCALE);
+			drawDirection("W", 90, PRIMARY_CARDINAL_SCALE);
+			drawDirection("N", 180, PRIMARY_CARDINAL_SCALE);
+			drawDirection("E", 270, PRIMARY_CARDINAL_SCALE);
 		}
 
 		if (details >= 1) // MED
 		{
-			drawDirection("SW", 45, 1D);
-			drawDirection("NW", 135, 1D);
-			drawDirection("NE", 225, 1D);
-			drawDirection("SE", 315, 1D);
+			drawDirection("SW", 45, SECONDARY_CARDINAL_SCALE);
+			drawDirection("NW", 135, SECONDARY_CARDINAL_SCALE);
+			drawDirection("NE", 225, SECONDARY_CARDINAL_SCALE);
+			drawDirection("SE", 315, SECONDARY_CARDINAL_SCALE);
 		}
 
 		if (details >= 2) // HIGH
 		{
-			drawDirection("15", 15, 0.75D);
-			drawDirection("30", 30, 0.75D);
-			drawDirection("60", 60, 0.75D);
-			drawDirection("75", 75, 0.75D);
-			drawDirection("105", 105, 0.75D);
-			drawDirection("120", 120, 0.75D);
-			drawDirection("150", 150, 0.75D);
-			drawDirection("165", 165, 0.75D);
-			drawDirection("195", 195, 0.75D);
-			drawDirection("210", 210, 0.75D);
-			drawDirection("240", 240, 0.75D);
-			drawDirection("255", 255, 0.75D);
-			drawDirection("285", 285, 0.75D);
-			drawDirection("300", 300, 0.75D);
-			drawDirection("330", 330, 0.75D);
-			drawDirection("345", 345, 0.75D);
+			drawDirection("15", 15, ANGLE_SCALE);
+			drawDirection("30", 30, ANGLE_SCALE);
+			drawDirection("60", 60, ANGLE_SCALE);
+			drawDirection("75", 75, ANGLE_SCALE);
+			drawDirection("105", 105, ANGLE_SCALE);
+			drawDirection("120", 120, ANGLE_SCALE);
+			drawDirection("150", 150, ANGLE_SCALE);
+			drawDirection("165", 165, ANGLE_SCALE);
+			drawDirection("195", 195, ANGLE_SCALE);
+			drawDirection("210", 210, ANGLE_SCALE);
+			drawDirection("240", 240, ANGLE_SCALE);
+			drawDirection("255", 255, ANGLE_SCALE);
+			drawDirection("285", 285, ANGLE_SCALE);
+			drawDirection("300", 300, ANGLE_SCALE);
+			drawDirection("330", 330, ANGLE_SCALE);
+			drawDirection("345", 345, ANGLE_SCALE);
 		}
 	}
 
-	public void save(Configuration config)
-	{
-		config.get("general", "enabled", true).set(enabled);
-		config.get("general", "details", 2).set(details);
-		config.get("position", "offX", 0).set(offX);
-		config.get("position", "offY", 0).set(offY);
-		config.get("scale", "width", 150).set(width);
-		config.get("scale", "height", 20).set(height);
-		config.get("scale", "cwidth", 300).set(cwidth);
-		config.get("color", "background", true).set(background);
-		config.get("color", "chroma", false).set(chroma);
-		config.get("color", "shadow", true).set(shadow);
-		config.get("color", "tintMarker", 0).set(tintMarker);
-		config.get("color", "tintDirection", 0).set(tintDirection);
-	}
-
-	public void load(Configuration config)
-	{
-		enabled = config.get("general", "enabled", true).getBoolean();
-		details = config.get("general", "details", 2).getInt();
-		offX = config.get("position", "offX", 0).getInt();
-		offY = config.get("position", "offY", 0).getInt();
-		width = config.get("scale", "width", 150).getInt();
-		height = config.get("scale", "height", 20).getInt();
-		cwidth = config.get("scale", "cwidth", 300).getInt();
-		background = config.get("color", "background", true).getBoolean();
-		chroma = config.get("color", "chroma", false).getBoolean();
-		shadow = config.get("color", "shadow", true).getBoolean();
-		tintMarker = config.get("color", "tintMarker", 0).getInt();
-		tintDirection = config.get("color", "tintDirection", 0).getInt();
-	}
-
-	private int normalize(int direction)
-	{
-		if (direction > 360)
-		{
-			direction %= 360;
-		}
-
-		while (direction < 0)
-		{
-			direction += 360;
-		}
-
-		return direction;
-	}
 
 	private void renderMarker()
 	{
@@ -172,7 +132,9 @@ public class FNCompass
 		GlStateManager.enableBlend();
 		GlStateManager.disableTexture2D();
 		GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0);
-		GlStateManager.color((colorMarker >> 16 & 255) / 255F, (colorMarker >> 8 & 255) / 255F, (colorMarker & 255) / 255F, 1F);
+		GlStateManager
+				.color((colorMarker >> 16 & 255) / 255F, (colorMarker >> 8 & 255) / 255F, (colorMarker & 255) / 255F,
+						1F);
 		worldrenderer.begin(GL11.GL_TRIANGLE_FAN, DefaultVertexFormats.POSITION);
 		worldrenderer.pos(centerX, offY + 3, 0.0D).endVertex();
 		worldrenderer.pos(centerX + 3, offY, 0.0D).endVertex();
@@ -220,5 +182,52 @@ public class FNCompass
 			GL11.glPopMatrix();
 			GL11.glDisable(GL11.GL_BLEND);
 		}
+	}
+
+	public void save(Configuration config)
+	{
+		config.get("general", "enabled", true).set(enabled);
+		config.get("general", "details", 2).set(details);
+		config.get("position", "offX", 0).set(offX);
+		config.get("position", "offY", 0).set(offY);
+		config.get("scale", "width", 150).set(width);
+		config.get("scale", "height", 20).set(height);
+		config.get("scale", "cwidth", 500).set(cwidth);
+		config.get("color", "background", true).set(background);
+		config.get("color", "chroma", false).set(chroma);
+		config.get("color", "shadow", true).set(shadow);
+		config.get("color", "tintMarker", 0).set(tintMarker);
+		config.get("color", "tintDirection", 0).set(tintDirection);
+	}
+
+	public void load(Configuration config)
+	{
+		enabled = config.get("general", "enabled", true).getBoolean();
+		details = config.get("general", "details", 2).getInt();
+		offX = config.get("position", "offX", 0).getInt();
+		offY = config.get("position", "offY", 0).getInt();
+		width = config.get("scale", "width", 150).getInt();
+		height = config.get("scale", "height", 20).getInt();
+		cwidth = config.get("scale", "cwidth", 500).getInt();
+		background = config.get("color", "background", true).getBoolean();
+		chroma = config.get("color", "chroma", false).getBoolean();
+		shadow = config.get("color", "shadow", true).getBoolean();
+		tintMarker = config.get("color", "tintMarker", 0).getInt();
+		tintDirection = config.get("color", "tintDirection", 0).getInt();
+	}
+
+	private int normalize(int direction)
+	{
+		if (direction > 360)
+		{
+			direction %= 360;
+		}
+
+		while (direction < 0)
+		{
+			direction += 360;
+		}
+
+		return direction;
 	}
 }

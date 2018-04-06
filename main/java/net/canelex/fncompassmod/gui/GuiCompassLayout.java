@@ -22,8 +22,10 @@ public class GuiCompassLayout extends GuiCompass
 	public void initGui()
 	{
 		buttonList.add(new GuiButton(0, width / 2 - 60, height / 2 - 25, 120, 20, getDetailString()));
-		buttonList.add(sliderWidth = new GuiSlider(1, width / 2 - 60, height / 2, 120, 20, "Width: ", "", 50, 300, compass.width, false, true));
-		buttonList.add(sliderCWidth = new GuiSlider(2, width / 2 - 60, height / 2 + 25, 120, 20, "Spacing: ", "", 200, 1200, compass.cwidth, false, true));
+		buttonList.add(sliderWidth = new GuiSlider(1, width / 2 - 60, height / 2, 120, 20, "Width: ", "", 50, 300,
+				compass.width, false, true));
+		buttonList.add(sliderCWidth = new GuiSlider(2, width / 2 - 60, height / 2 + 25, 120, 20, "Spacing: ", "", 200,
+				1200, compass.cwidth, false, true));
 		buttonList.add(new GuiButton(3, width / 2 - 60, height / 2 + 50, 120, 20, "Done"));
 	}
 

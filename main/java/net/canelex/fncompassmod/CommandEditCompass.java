@@ -10,41 +10,41 @@ import net.minecraftforge.fml.common.gameevent.TickEvent;
 
 public class CommandEditCompass extends CommandBase
 {
-    private CompassMod mod;
+	private CompassMod mod;
 
-    public CommandEditCompass(CompassMod mod)
-    {
-        this.mod = mod;
-    }
+	public CommandEditCompass(CompassMod mod)
+	{
+		this.mod = mod;
+	}
 
-    @Override
-    public String getCommandName()
-    {
-        return "compassmod";
-    }
+	@Override
+	public String getCommandName()
+	{
+		return "compassmod";
+	}
 
-    @Override
-    public String getCommandUsage(ICommandSender sender)
-    {
-        return "/compassmod";
-    }
+	@Override
+	public String getCommandUsage(ICommandSender sender)
+	{
+		return "/compassmod";
+	}
 
-    @Override
-    public boolean canCommandSenderUseCommand(ICommandSender sender)
-    {
-        return true;
-    }
+	@Override
+	public boolean canCommandSenderUseCommand(ICommandSender sender)
+	{
+		return true;
+	}
 
-    @Override
-    public void processCommand(ICommandSender sender, String[] args)
-    {
-        MinecraftForge.EVENT_BUS.register(this);
-    }
+	@Override
+	public void processCommand(ICommandSender sender, String[] args)
+	{
+		MinecraftForge.EVENT_BUS.register(this);
+	}
 
-    @SubscribeEvent
-    public void onClientTick(TickEvent.ClientTickEvent event)
-    {
-        MinecraftForge.EVENT_BUS.unregister(this);
-        Minecraft.getMinecraft().displayGuiScreen(new GuiCompassHub(mod));
-    }
+	@SubscribeEvent
+	public void onClientTick(TickEvent.ClientTickEvent event)
+	{
+		MinecraftForge.EVENT_BUS.unregister(this);
+		Minecraft.getMinecraft().displayGuiScreen(new GuiCompassHub(mod));
+	}
 }

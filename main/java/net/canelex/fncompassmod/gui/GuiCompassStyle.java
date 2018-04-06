@@ -21,11 +21,16 @@ public class GuiCompassStyle extends GuiCompass
 	@Override
 	public void initGui()
 	{
-		buttonList.add(new GuiButton(0, width / 2 - 60, height / 2 - 75, 120, 20, getColoredBool("Background: ", compass.background)));
-		buttonList.add(new GuiButton(1, width / 2 - 60, height / 2 - 50, 120, 20, getColoredBool("Chroma: ", compass.chroma)));
-		buttonList.add(new GuiButton(2, width / 2 - 60, height / 2 - 25, 120, 20, getColoredBool("Shadow: ", compass.shadow)));
-		buttonList.add(sliderMarkerTint = new GuiSlider(3, width / 2 - 60, height / 2, 120, 20, "Marker Tint: ", "", 0, 100, compass.tintMarker, false, true));
-		buttonList.add(sliderDirectionTint = new GuiSlider(4, width / 2 - 60, height / 2 + 25, 120, 20, "Direction Tint: ", "", 0, 100, compass.tintDirection, false, true));
+		buttonList.add(new GuiButton(0, width / 2 - 60, height / 2 - 75, 120, 20,
+				getColoredBool("Background: ", compass.background)));
+		buttonList.add(new GuiButton(1, width / 2 - 60, height / 2 - 50, 120, 20,
+				getColoredBool("Chroma: ", compass.chroma)));
+		buttonList.add(new GuiButton(2, width / 2 - 60, height / 2 - 25, 120, 20,
+				getColoredBool("Shadow: ", compass.shadow)));
+		buttonList.add(sliderMarkerTint = new GuiSlider(3, width / 2 - 60, height / 2, 120, 20, "Marker Tint: ", "", 0,
+				100, compass.tintMarker, false, true));
+		buttonList.add(sliderDirectionTint = new GuiSlider(4, width / 2 - 60, height / 2 + 25, 120, 20,
+				"Direction Tint: ", "", 0, 100, compass.tintDirection, false, true));
 		buttonList.add(new GuiButton(5, width / 2 - 60, height / 2 + 50, 120, 20, "Done"));
 	}
 
