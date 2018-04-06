@@ -1,0 +1,12 @@
+[
+{
+  "modid": "fncompassmod",
+  "name": "Fortnite Compass Mod",
+  "description": "Renders a HUD that displays your current direction just like in the game Fortnite.",
+  "version": "1.0",
+  "mcversion": "${mcversion}",
+  "url": "www.youtube.com/canelex",
+  "updateUrl": "",
+  "authorList": ["canelex"]
+}
+]
